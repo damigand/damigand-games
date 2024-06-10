@@ -1,7 +1,7 @@
 import './threeinrow.css';
 
-export function threeInRowGame() {
+export function threeInRowGame(selected = false) {
    return `
-      
+     
    `;
 }

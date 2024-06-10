@@ -1,6 +1,6 @@
 import './bingo.css';
 
-export function bingoGame() {
+export function bingoGame(selected = false) {
    return `
       
    `;

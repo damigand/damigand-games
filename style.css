@@ -1,0 +1,45 @@
+:root {
+   --h1-text: 3vw;
+   --h2-text: 2.5vw;
+   --h3-text: 2vw;
+   --regular-text: 1.5vw;
+
+   --spacing-l: 10%;
+   --spacing-m: 5%;
+   --spacing-s: 2%;
+   --spacing-xs: 1%;
+
+   --px-xl: 100px;
+   --px-l: 50px;
+   --px-m: 25px;
+   --px-s: 15px;
+   --px-xs: 5px;
+}
+
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   font-size: var(--regular-text);
+}
+
+h1 {
+   font-size: var(--h1-text);
+}
+
+h2 {
+   font-size: var(--h2-text);
+}
+
+h3 {
+   font-size: var(--h3-text);
+}
+
+.spacing {
+   margin: var(--spacing-s) var(--spacing-l);
+   padding: var(--spacing-s);
+}
+
+.hidden {
+   visibility: hidden;
+}

@@ -1,6 +1,6 @@
 import './memory.css';
 
-export function memoryGame() {
+export function memoryGame(selected = false) {
    return `
       
    `;

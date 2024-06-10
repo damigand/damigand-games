@@ -1,7 +1,7 @@
 import './rps.css';
 
-export function rpsGame() {
+export function rpsGame(selected = false) {
    return `
-      
+     
    `;
 }

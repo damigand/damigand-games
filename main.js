@@ -1,17 +1,11 @@
 import '@/style.css';
 
-import { header } from '~c/HeaderComponent/header.js';
-import { rpsGame } from '~c/RPSGameComponent/rps.js';
-import { bingoGame } from '~c/BingoComponent/bingo.js';
-import { memoryGame } from '~c/MemoryGameComponent/memory.js';
-import { threeInRowGame } from '~c/ThreeInRowComponent/threeinrow.js';
+import { headerSection } from '~c/HeaderComponent/header.js';
+import { game } from '~c/GameComponent/game.js';
 
 document.querySelector('#app').innerHTML = `
-   ${header}
+   ${headerSection()}
    <main>
-      ${rpsGame}
-      ${bingoGame}
-      ${memoryGame}
-      ${threeInRowGame}
+      ${game()}
    </main>
 `;
