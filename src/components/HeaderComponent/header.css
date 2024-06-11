@@ -1,0 +1,26 @@
+header {
+   text-align: center;
+   border-bottom: 2px solid black;
+   width: 100%;
+   color: white;
+}
+
+.rps-header {
+   background-color: var(--rps-secondary);
+   transition: 0.5s;
+}
+
+.bingo-header {
+   background-color: var(--bingo-secondary);
+   transition: 0.5s;
+}
+
+.memory-header {
+   background-color: var(--memory-secondary);
+   transition: 0.5s;
+}
+
+.threeinrow-header {
+   background-color: var(--threeinrow-secondary);
+   transition: 0.5s;
+}

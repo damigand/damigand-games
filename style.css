@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
 :root {
    --h1-text: 3vw;
    --h2-text: 2.5vw;
@@ -14,9 +16,31 @@
    --px-m: 25px;
    --px-s: 15px;
    --px-xs: 5px;
+
+   /* game-specific colors */
+   /*Rock Paper Scissors*/
+   --rps-primary: #71ce71b6;
+   --rps-secondary: #498649;
+   --rock-color: #b49286;
+   --scissor-color: #536b78;
+   --paper-color: #7c94be;
+
+   /*Bingo*/
+   --bingo-primary: #6fcacf8a;
+   --bingo-secondary: #467599;
+
+   /*Memory*/
+   --memory-primary: #ec4f54ad;
+   --memory-secondary: #9b2e32;
+
+   /*threeinrow*/
+   --threeinrow-primary: #ffe60059;
+   --threeinrow-secondary: #a39832;
 }
 
 * {
+   font-family: 'Plus Jakarta Sans', sans-serif;
+   letter-spacing: 1px;
    margin: 0;
    padding: 0;
    box-sizing: border-box;
@@ -48,8 +72,12 @@ main {
 }
 
 .spacing {
-   margin: var(--spacing-s) var(--spacing-l);
+   margin: var(--spacing-s) var(--spacing-m);
    padding: var(--spacing-s);
+}
+
+header h1 {
+   padding: var(--px-m);
 }
 
 .hidden {

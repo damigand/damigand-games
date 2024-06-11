@@ -3,6 +3,7 @@ import { rpsGame } from '~c/RPSGameComponent/rps.js';
 import { bingoGame } from '~c/BingoComponent/bingo.js';
 import { memoryGame } from '~c/MemoryGameComponent/memory.js';
 import { threeInRowGame } from '~c/ThreeInRowComponent/threeinrow.js';
+import { updateHeader } from '~c/HeaderComponent/header';
 
 export const gameEnum = {
    RPS: 'Rock, Paper, Scissors',
@@ -12,10 +13,13 @@ export const gameEnum = {
 };
 
 var currentGame = gameEnum.RPS;
+var previousColors;
 
 export function game(game) {
+   const colors = getColorsByGame(game);
+   previousColors = colors;
    return `
-        <section class="game-section">
+        <section class="game-section ${colors}">
             <img class="previous-game hidden" src="left-arrow.png" />
             <div class="current-game">
                ${playGame(game)}
@@ -84,16 +88,50 @@ function playGame(game) {
 
    switch (game) {
       case gameEnum.RPS:
+         updateHeader(currentGame);
+         updateGameColors(currentGame);
          return rpsGame(gameEnum.RPS);
 
       case gameEnum.Bingo:
+         updateHeader(currentGame);
+         updateGameColors(currentGame);
          return bingoGame(gameEnum.Bingo);
 
       case gameEnum.Memory:
+         updateHeader(currentGame);
+         updateGameColors(currentGame);
          return memoryGame(gameEnum.Memory);
 
       case gameEnum.THREEINROW:
+         updateHeader(currentGame);
+         updateGameColors(currentGame);
          return threeInRowGame(gameEnum.THREEINROW);
+   }
+}
+
+function updateGameColors(game) {
+   const colorClass = getColorsByGame(game);
+   const gameSection = document.querySelector('.game-section');
+   if (gameSection) {
+      gameSection.classList.remove(previousColors);
+      gameSection.classList.add(colorClass);
+      previousColors = colorClass;
+   }
+}
+
+function getColorsByGame(game) {
+   switch (game) {
+      case gameEnum.RPS:
+         return 'rps-color';
+
+      case gameEnum.Bingo:
+         return 'bingo-color';
+
+      case gameEnum.Memory:
+         return 'memory-color';
+
+      case gameEnum.THREEINROW:
+         return 'threeinrow-color';
    }
 }
 
@@ -110,7 +148,7 @@ function getGameByIndex(index) {
 //Función para obtener el index del juego actual.
 //Usado para calcular el index del siguiente juego.
 //Esta estructura de métodos permite navegar por un enumerado
-//de juegos con cualquier longitud.
+//de juegos de cualquier longitud.
 
 function getCurrentGameIndex() {
    const currentGameIndex = Object.values(gameEnum).indexOf(currentGame);

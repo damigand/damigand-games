@@ -2,7 +2,7 @@
    width: 100%;
    display: grid;
    grid-template-rows: 1fr;
-   grid-template-columns: 1fr 8fr 1fr;
+   grid-template-columns: 75px 1fr 75px;
 }
 
 .game-section > img {
@@ -16,4 +16,24 @@
 
 .next-game {
    justify-self: flex-end;
+}
+
+.rps-color {
+   background-color: var(--rps-primary);
+   transition: 0.5s;
+}
+
+.bingo-color {
+   background-color: var(--bingo-primary);
+   transition: 0.5s;
+}
+
+.memory-color {
+   background-color: var(--memory-primary);
+   transition: 0.5s;
+}
+
+.threeinrow-color {
+   background-color: var(--threeinrow-primary);
+   transition: 0.5s;
 }
