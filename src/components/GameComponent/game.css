@@ -1,0 +1,19 @@
+.game-section {
+   width: 100%;
+   display: grid;
+   grid-template-rows: 1fr;
+   grid-template-columns: 1fr 8fr 1fr;
+}
+
+.game-section > img {
+   width: 75px;
+   height: 75px;
+   align-self: center;
+   margin: 0px auto;
+   margin-bottom: var(--px-xl);
+   cursor: pointer;
+}
+
+.next-game {
+   justify-self: flex-end;
+}
