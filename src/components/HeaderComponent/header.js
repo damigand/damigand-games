@@ -32,7 +32,6 @@ function getColorsByGame(game) {
 }
 
 export function updateHeader(game) {
-   console.log(previousColors);
    const colorClass = getColorsByGame(game);
    const header = document.querySelector('header');
    if (header) {

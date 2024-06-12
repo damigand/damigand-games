@@ -2,8 +2,9 @@ import '@/style.css';
 
 import { headerSection } from '~c/HeaderComponent/header.js';
 import { game, gameEnum, changeGameButtons } from '~c/GameComponent/game.js';
+import { threeInRowListeners } from '~c/ThreeInRowComponent/threeinrow.js';
 
-var currentGame = gameEnum.RPS;
+var currentGame = gameEnum.THREEINROW;
 
 document.querySelector('#app').innerHTML = `
    ${headerSection()}
@@ -13,3 +14,4 @@ document.querySelector('#app').innerHTML = `
 `;
 
 changeGameButtons();
+threeInRowListeners();

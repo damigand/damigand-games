@@ -2,17 +2,17 @@ import './game.css';
 import { rpsGame } from '~c/RPSGameComponent/rps.js';
 import { bingoGame } from '~c/BingoComponent/bingo.js';
 import { memoryGame } from '~c/MemoryGameComponent/memory.js';
-import { threeInRowGame } from '~c/ThreeInRowComponent/threeinrow.js';
+import { threeInRowGame, threeInRowListeners } from '~c/ThreeInRowComponent/threeinrow.js';
 import { updateHeader } from '~c/HeaderComponent/header';
 
 export const gameEnum = {
+   THREEINROW: 'Three in a row',
    RPS: 'Rock, Paper, Scissors',
    Bingo: 'Bingo Game',
    Memory: 'Memory Cards',
-   THREEINROW: 'Three in a row',
 };
 
-var currentGame = gameEnum.RPS;
+var currentGame = gameEnum.THREEINROW;
 var previousColors;
 
 export function game(game) {
@@ -20,11 +20,13 @@ export function game(game) {
    previousColors = colors;
    return `
         <section class="game-section ${colors}">
-            <img class="previous-game hidden" src="left-arrow.png" />
             <div class="current-game">
                ${playGame(game)}
             </div>
-            <img class="next-game" src="right-arrow.png" />
+            <div class="change-game">
+               <img class="previous-game hidden" src="left-arrow.png" />
+               <img class="next-game" src="right-arrow.png" />
+            </div>
         </section>
    `;
 }
@@ -83,28 +85,32 @@ export function changeGameButtons() {
 }
 
 //Funcion que devuelve el "article" correspondiente del juego mediante parámetro
-function playGame(game) {
+function playGame(game, gameChanged = false) {
    currentGame = game;
 
    switch (game) {
       case gameEnum.RPS:
          updateHeader(currentGame);
          updateGameColors(currentGame);
+         //RPS listeners
          return rpsGame(gameEnum.RPS);
 
       case gameEnum.Bingo:
          updateHeader(currentGame);
          updateGameColors(currentGame);
+         //Bingo listeners
          return bingoGame(gameEnum.Bingo);
 
       case gameEnum.Memory:
          updateHeader(currentGame);
          updateGameColors(currentGame);
+         //Memory listeners
          return memoryGame(gameEnum.Memory);
 
       case gameEnum.THREEINROW:
          updateHeader(currentGame);
          updateGameColors(currentGame);
+         if (gameChanged) threeInRowListeners();
          return threeInRowGame(gameEnum.THREEINROW);
    }
 }
@@ -154,3 +160,5 @@ function getCurrentGameIndex() {
    const currentGameIndex = Object.values(gameEnum).indexOf(currentGame);
    return currentGameIndex;
 }
+
+function getNextGame() {}
