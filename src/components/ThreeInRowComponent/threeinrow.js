@@ -1,5 +1,7 @@
 import './threeinrow.css';
 
+const currentGame = [];
+
 export function threeInRowGame(game) {
    return `
         <article class="game-threeinrow spacing">
@@ -34,26 +36,27 @@ function drawScore() {
 }
 
 function drawBoard() {
+   var elements = '';
+   var cellCounter = 1;
+   for (var a = 1; a < 4; a++) {
+      for (var b = 1; b < 4; b++) {
+         elements += drawBoardCell(a, b, cellCounter);
+         cellCounter++;
+      }
+   }
    return `
     <div class="threeinrow-cells">
-        <div class="cell" id="cell1">
-        </div>
-        <div class="cell" id="cell2">
-        </div>
-        <div class="cell" id="cell3">
-        </div>
-        <div class="cell" id="cell4">
-        </div>
-        <div class="cell" id="cell5">
-        </div>
-        <div class="cell" id="cell6">
-        </div>
-        <div class="cell" id="cell7">
-        </div>
-        <div class="cell" id="cell8">
-        </div>
-        <div class="cell" id="cell9">
-        </div>
+      ${elements}
+      </div>
+   `;
+}
+
+function drawBoardCell(row, column, cell) {
+   const id = 'cell-' + cell;
+   currentGame.push({ id: id, symbol: '' });
+
+   return `
+      <div class="cell row-${row} col-${column}" id="${id}">
       </div>
    `;
 }
@@ -102,6 +105,13 @@ export function threeInRowListeners() {
    const cells = document.querySelectorAll('.game-threeinrow .cell');
    cells.forEach((cell) => {
       cell.addEventListener('click', (event) => {
+         const id = event.target.id;
+         const currentCell = currentGame.find((c) => c.id == id);
+
+         if (!currentCell) {
+            return;
+         }
+
          if (hasGameStarted) {
             if (currentTurn == true) {
                cell.innerHTML = `
@@ -112,10 +122,26 @@ export function threeInRowListeners() {
                 <img class="circle" src="circle.png" />
                 `;
             }
+
+            const classes = event.target.classList.value.split(' ');
+            const row = classes[1].split('-')[1];
+            const col = classes[2].split('-')[1];
+
+            checkWin(currentTurn, row, col);
+
+            currentCell.symbol = currentTurn;
             currentTurn = !currentTurn;
+
             crossStart.classList.toggle('d-none');
             circleStart.classList.toggle('d-none');
          }
       });
    });
+}
+
+const winningMap = ['123', '456', '789', '147', '258', '369', '159', '357'];
+
+//player = true - X, player = false - O
+function checkWin(player, row, column) {
+   //Chequear ganador.
 }

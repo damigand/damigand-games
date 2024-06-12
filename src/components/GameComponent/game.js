@@ -19,15 +19,15 @@ export function game(game) {
    const colors = getColorsByGame(game);
    previousColors = colors;
    return `
-        <section class="game-section ${colors}">
-            <div class="current-game">
-               ${playGame(game)}
-            </div>
-            <div class="change-game">
-               <img class="previous-game hidden" src="left-arrow.png" />
-               <img class="next-game" src="right-arrow.png" />
-            </div>
-        </section>
+      <section class="game-section ${colors}">
+         <div class="current-game">
+            ${playGame(game)}
+         </div>
+         <div class="change-game">
+            <img class="previous-game hidden" src="left-arrow.png" />
+            <img class="next-game" src="right-arrow.png" />
+         </div>
+      </section>
    `;
 }
 
@@ -45,7 +45,19 @@ function changeGame(direction) {
    if (nextGameIndex < Object.keys(gameEnum).length && nextGameIndex >= 0) {
       currentGame = getGameByIndex(nextGameIndex);
 
-      document.querySelector('.current-game').innerHTML = playGame(currentGame);
+      document.querySelector('.current-game').innerHTML = playGame(currentGame, true);
+
+      //Añadimos de nuevo los "listeners" de cada juego una vez se carguen.
+      switch (currentGame) {
+         case gameEnum.THREEINROW:
+            threeInRowListeners();
+         case gameEnum.Bingo:
+         //
+         case gameEnum.Memory:
+         //
+         case gameEnum.RPS:
+         //
+      }
 
       return nextGameIndex;
    }
@@ -92,25 +104,25 @@ function playGame(game, gameChanged = false) {
       case gameEnum.RPS:
          updateHeader(currentGame);
          updateGameColors(currentGame);
-         //RPS listeners
+         //reset / load game
          return rpsGame(gameEnum.RPS);
 
       case gameEnum.Bingo:
          updateHeader(currentGame);
          updateGameColors(currentGame);
-         //Bingo listeners
+         //reset / load game
          return bingoGame(gameEnum.Bingo);
 
       case gameEnum.Memory:
          updateHeader(currentGame);
          updateGameColors(currentGame);
-         //Memory listeners
+         //reset / load game
          return memoryGame(gameEnum.Memory);
 
       case gameEnum.THREEINROW:
          updateHeader(currentGame);
          updateGameColors(currentGame);
-         if (gameChanged) threeInRowListeners();
+         //reset / load game
          return threeInRowGame(gameEnum.THREEINROW);
    }
 }

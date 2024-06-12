@@ -76,8 +76,8 @@ main {
 }
 
 .spacing {
-   margin: var(--spacing-s) var(--spacing-m);
-   padding: var(--spacing-s);
+   margin: 0px var(--spacing-m);
+   padding: 0px var(--spacing-s);
 }
 
 header h1 {
