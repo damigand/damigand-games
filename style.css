@@ -39,6 +39,7 @@
    /*threeinrow*/
    --threeinrow-primary: #fff38a;
    --threeinrow-secondary: #ccc161;
+   --threeinrow-winningcell: rgba(148, 226, 148, 0.932);
 }
 
 * {
