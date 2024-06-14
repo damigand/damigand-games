@@ -91,13 +91,36 @@ function drawBoardCell(row, column, cellNumber, symbol = -1, loading = false, ce
 }
 
 function drawTurns() {
+   if (winnerCells.length > 0) {
+      //Al usar "innerHTML", se pinta el HTML del objeto sin contarse a sí mismo,
+      //es decir, el propio "div" no se pinta a sí mismo con innerHTML.
+      //para que se pinte, uso un div temporal.
+      const winnerDiv = createWinnerDiv(winnerCells[0].symbol);
+      const tempDiv = document.createElement('div');
+      tempDiv.appendChild(winnerDiv);
+      return `${tempDiv.innerHTML}`;
+   }
+
+   if (hasGameStarted) {
+      return `
+         <h3>Turno de</h3>
+         <div class="choose-turn">
+            <div class="circle-start ${currentTurn == 0 ? '' : 'd-none'}" id="circle">
+               <img src="circle.png" />
+            </div>
+            <div class="cross-start ${currentTurn == 1 ? '' : 'd-none'}" id="cross">
+               <img src="cross.png" />
+            </div>
+         </div>
+      `;
+   }
    return `
       <h3>¿Quién comienza el juego? </h3>
         <div class="choose-turn">
-        <div class="cross-start" id="circle">
+        <div class="circle-start" id="circle">
           <img src="circle.png" />
         </div>
-        <div class="cirlce-start" id="cross">
+        <div class="cross-start" id="cross">
           <img src="cross.png" />
         </div>
       </div>
@@ -105,6 +128,13 @@ function drawTurns() {
 }
 
 export function threeInRowListeners() {
+   if (winnerCells.length > 1) {
+      const restartButton = document.querySelector('.dir-restart');
+      if (restartButton) {
+         restartButtonListener(restartButton);
+      }
+      return;
+   }
    //Elegir turno
    const circleStart = document.querySelector('#circle');
    const crossStart = document.querySelector('#cross');
@@ -136,30 +166,21 @@ export function threeInRowListeners() {
    const cells = document.querySelectorAll('.game-threeinrow .cell');
    cells.forEach((cell) => {
       cell.addEventListener('click', (event) => {
-         const id = event.target.id;
-         const currentCell = currentGame.find((c) => c.id == id);
+         const index = cell.id.split('-')[1] - 1;
+         const currentCell = currentGame[index];
 
-         console.log(typeof hasGameStarted);
-
-         if (!currentCell) {
+         if (currentCell.symbol != -1) {
             return;
          }
 
          if (hasGameStarted) {
-            if (currentTurn == 1) {
-               cell.innerHTML = `
-                  <img class="cross" src="cross.png" />
-                `;
-            } else if (currentTurn == 0) {
-               cell.innerHTML = `
-                <img class="circle" src="circle.png" />
-                `;
-            }
+            const turn = currentTurn == 1 ? 'cross' : 'circle';
+            cell.innerHTML = `
+            <img class="${turn}" src="${turn}.png" />
+            `;
 
             const cellId = event.target.id.split('-')[1];
-
             currentCell.symbol = currentTurn;
-
             checkWin(currentTurn, cellId);
 
             currentTurn = currentTurn == 0 ? 1 : 0;
@@ -187,6 +208,7 @@ function checkWin(player, cellId) {
       const secondIndex = matchingCells[1];
       const thirdIndex = matchingCells[2];
 
+      //Obtengo las celdas en base al mapa de combinaciones.
       const firstWinningCell = currentGame[firstIndex - 1];
       const secondWinningCell = currentGame[secondIndex - 1];
       const thirdWinningCell = currentGame[thirdIndex - 1];
@@ -196,7 +218,10 @@ function checkWin(player, cellId) {
       const secondCellSymbol = secondWinningCell.symbol;
       const thirdCellSymbol = thirdWinningCell.symbol;
 
+      //Si las celdas del mapa de combinaciones tienen el mismo valor y no están
+      //vacías, es una victoria.
       if (firstCellSymbol == player && firstCellSymbol != -1 && secondCellSymbol == player && thirdCellSymbol == player) {
+         //Cambio su estilo, las meto en un array y termino la partida.
          const firstCellDiv = document.querySelector(`#cell-${firstIndex}`);
          const secondCellDiv = document.querySelector(`#cell-${secondIndex}`);
          const thirdCellDiv = document.querySelector(`#cell-${thirdIndex}`);
@@ -241,25 +266,21 @@ function finishGame(winner) {
    const turnsDiv = document.querySelector('.threeinrow-turns');
 
    //Lo hago de esta manera para poder meter el listener en "restart".
+   const winnerDiv = createWinnerDiv(winner);
+   turnsDiv.replaceChildren(winnerDiv);
+}
+
+function createWinnerDiv(winner) {
    const winnerDiv = document.createElement('div');
    const winnerTitle = document.createElement('h3');
    const winnerImg = document.createElement('img');
    const restartButton = document.createElement('a');
 
-   restartButton.addEventListener('click', (event) => {
-      currentGame.splice(0, currentGame.length);
-
-      resetGame();
-      const game = document.querySelector('.current-game');
-      game.innerHTML = `${threeInRowGame()}`;
-      threeInRowListeners();
-
-      localStorage.setItem('TIR-currentGame', JSON.stringify(currentGame));
-   });
-
    winnerTitle.textContent = 'Ha ganado el jugador';
    winnerImg.src = winner == 1 ? 'cross.png' : 'circle.png';
    restartButton.textContent = 'Jugar otra vez';
+
+   restartButtonListener(restartButton);
 
    winnerImg.classList.add(winner == 1 ? 'cross' : 'circle');
    winnerDiv.classList.add('threeinrow-winner');
@@ -269,7 +290,19 @@ function finishGame(winner) {
    winnerDiv.appendChild(winnerImg);
    winnerDiv.appendChild(restartButton);
 
-   turnsDiv.replaceChildren(winnerDiv);
+   return winnerDiv;
+}
+
+function restartButtonListener(restartButton) {
+   restartButton.addEventListener('click', (event) => {
+      currentGame.splice(0, currentGame.length);
+      resetGame();
+      const game = document.querySelector('.current-game');
+      game.innerHTML = `${threeInRowGame()}`;
+      threeInRowListeners();
+
+      localStorage.setItem('TIR-currentGame', JSON.stringify(currentGame));
+   });
 }
 
 function loadGame() {
