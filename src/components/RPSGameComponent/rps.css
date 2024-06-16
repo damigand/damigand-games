@@ -1,1 +1,75 @@
+.game-rps {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    height: 100%;
+}
 
+.rps-play {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+    height: 100%;
+    justify-content: center;
+}
+
+.rps-player,
+.rps-ia {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.rps-result {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.rps-options {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    height: 100px;
+}
+
+.rps-option {
+    height: 100%;
+    width: 100%;
+    max-width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 0;
+}
+
+.rps-rock {
+    background-color: var(--rock-color);
+    border-radius: 50px;
+}
+
+.rps-scissors {
+    background-color: var(--scissor-color);
+    border-radius: 50px;
+}
+
+.rps-paper {
+    background-color: var(--paper-color);
+    border-radius: 50px;
+}
+
+.rps-option > img {
+    height: 70%;
+    transition: 0.3s;
+}
+
+.rps-option:hover > img {
+    height: 100%;
+    transition: 0.3s;
+    cursor: pointer;
+}

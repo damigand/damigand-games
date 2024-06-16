@@ -7,10 +7,14 @@
 .change-game {
    position: fixed;
    bottom: 0;
-   height: 75px;
+   height: var(--change-game-height);
    width: 100%;
    display: flex;
    justify-content: space-around;
+}
+
+.current-game {
+   height: calc((100%) - var(--change-game-height));
 }
 
 .change-game > img {
