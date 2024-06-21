@@ -10,9 +10,10 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 100px;
+    gap: 25px;
     height: 100%;
     justify-content: center;
+    align-items: center;
 }
 
 .rps-player,
@@ -20,6 +21,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 25px;
 }
 
 .rps-result {
@@ -69,7 +71,36 @@
 }
 
 .rps-option:hover > img {
-    height: 100%;
+    height: 90%;
     transition: 0.3s;
     cursor: pointer;
+}
+
+.rps-player,
+.rps-ia {
+    height: 150px;
+}
+
+.rps-player-option,
+.rps-ia-option {
+    height: 75%;
+}
+
+.rps-play-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 0;
+    height: 75px;
+    cursor: pointer;
+}
+
+.rps-play-button > img {
+    height: 60%;
+    transition: 0.3s;
+}
+
+.rps-play-button:hover > img {
+    height: 70%;
+    transition: 0.3s;
 }

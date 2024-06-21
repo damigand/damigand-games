@@ -1,6 +1,5 @@
 import './game.css';
 import { rpsGame, rpsListeners } from '~c/RPSGameComponent/rps.js';
-import { bingoGame } from '~c/BingoComponent/bingo.js';
 import { memoryGame } from '~c/MemoryGameComponent/memory.js';
 import { threeInRowGame, threeInRowListeners } from '~c/ThreeInRowComponent/threeinrow.js';
 import { updateHeader } from '~c/HeaderComponent/header';
@@ -8,11 +7,10 @@ import { updateHeader } from '~c/HeaderComponent/header';
 export const gameEnum = {
     RPS: 'Rock, Paper, Scissors',
     THREEINROW: 'Three in a row',
-    Bingo: 'Bingo Game',
     Memory: 'Memory Cards',
 };
 
-export var currentGame = gameEnum.RPS;
+export var currentGame = getGameByIndex(0);
 var previousColors;
 
 export function game() {
