@@ -1,0 +1,61 @@
+[class*='-score'] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+[class*='-score'] h3 {
+    position: absolute;
+    top: 5px;
+    padding: 0px var(--px-s);
+}
+
+.score-board {
+    margin-top: var(--px-m);
+    padding: var(--px-s) var(--px-m);
+    min-height: 75px;
+    border: 1px solid black;
+    width: 100%;
+    max-width: 300px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.score {
+    font-size: 20px;
+}
+
+.player-1,
+.player-2 {
+    height: 100%;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.player-1 img,
+.player-2 img {
+    width: 20px;
+    height: 20px;
+}
+
+.threeinrow-score h3 {
+    background-color: var(--threeinrow-primary);
+}
+
+.rps-score h3 {
+    background-color: var(--rps-primary);
+}
+
+.rps-score .player-1,
+.rps-score .player-2 {
+    flex-direction: column;
+}
+
+.rps-score .player-1 span,
+.rps-score .player-2 span {
+    font-weight: bold;
+}

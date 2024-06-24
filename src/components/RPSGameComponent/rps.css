@@ -52,17 +52,17 @@
 
 .rps-rock {
     background-color: var(--rock-color);
-    border-radius: 50px;
+    border-radius: 100px;
 }
 
 .rps-scissors {
     background-color: var(--scissor-color);
-    border-radius: 50px;
+    border-radius: 100px;
 }
 
 .rps-paper {
     background-color: var(--paper-color);
-    border-radius: 50px;
+    border-radius: 100px;
 }
 
 .rps-option > img {
@@ -83,6 +83,15 @@
 
 .rps-player-option,
 .rps-ia-option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    width: 100px;
+}
+
+.rps-player-img,
+.rps-ia-img {
     height: 75%;
 }
 
@@ -103,4 +112,18 @@
 .rps-play-button:hover > img {
     height: 70%;
     transition: 0.3s;
+}
+
+.rps-score {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 200px;
+    text-align: center;
+}
+.rps-score-player,
+.rps-score-ia {
+    display: flex;
+    flex-direction: column;
 }
